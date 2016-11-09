@@ -1,0 +1,6 @@
+#crons do GET Requests by default --!!
+cron:
+
+- description: initiate visa info update test
+  url: /visa_update
+  schedule: every 10 minutes
