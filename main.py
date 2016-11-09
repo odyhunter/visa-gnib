@@ -5,6 +5,8 @@
 # [START app]
 import logging
 import os
+
+
 import requests
 import json
 import time
@@ -44,6 +46,7 @@ HEADERS = {
 
 # [API objects]
 datastore_api_client = datastore.Client(os.environ['GCLOUD_PROJECT'])
+
 
 
 @app.route('/')
