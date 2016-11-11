@@ -1,0 +1,16 @@
+#crons do GET Requests by default --!!
+cron:
+
+- description: initiate visa info update
+  url: /visa_update
+  schedule: every 10 minutes
+
+- description: initiate gnib info update
+  url: /gnib_update
+  schedule: every 10 minutes
+
+- description: initiate notification check
+  url: /notification_check
+  schedule: every 10 minutes
+
+
