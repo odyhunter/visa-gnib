@@ -1,0 +1,10 @@
+indexes:
+- kind: AppointmentSlot
+  properties:
+    - name: type
+    - name: slot
+
+- kind: AppointmentSlot
+  properties:
+    - name: type
+    - name: date

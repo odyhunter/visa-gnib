@@ -1,0 +1,28 @@
+# [START runtime]
+runtime: python
+vm: true
+entrypoint: gunicorn -b :$PORT main:app
+
+runtime_config:
+  python_version: 2
+
+handlers:
+- url: /visa_update
+  script: IGNORED
+  login: admin
+
+- url: /gnib_update
+  script: IGNORED
+  login: admin
+
+- url: /.*
+  script: IGNORED
+
+env_variables:
+  GCLOUD_PROJECT: visa-gnib-notifier
+  MAILJET_API_KEY: e6e5fd4838b27c6e5cfe5324597b9a05
+  MAILJET_SECRET_KEY: c91ca692e3cc27bd1093f5cd086e649f
+  MAILJET_SENDER: notification@visa-gnib.info
+
+
+# [END runtime]
