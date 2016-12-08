@@ -1,16 +1,38 @@
 #crons do GET Requests by default --!!
 cron:
 
-- description: initiate visa info update
-  url: /visa_update
-  schedule: every 10 minutes
+- description: initiate 0 visa info update
+  url: /update?days=0&type=visa
+  schedule: every 5 minutes
 
-- description: initiate gnib info update
-  url: /gnib_update
-  schedule: every 10 minutes
+- description: initiate 25 visa info update
+  url: /update?days=25&type=visa
+  schedule: every 5 minutes
+
+- description: initiate 50 visa info update
+  url: /update?days=50&type=visa
+  schedule: every 5 minutes
+
+- description: initiate 75 visa info update
+  url: /update?days=75&type=visa
+  schedule: every 5 minutes
+
+- description: initiate 0 gnib info update
+  url: /update?days=0&type=gnib
+  schedule: every 5 minutes
+
+- description: initiate 25 gnib info update
+  url: /update?days=25&type=gnib
+  schedule: every 5 minutes
+
+- description: initiate 50 gnib info update
+  url: /update?days=50&type=gnib
+  schedule: every 5 minutes
+
+- description: initiate 75 gnib info update
+  url: /update?days=75&type=gnib
+  schedule: every 5 minutes
 
 - description: initiate notification check
   url: /notification_check
-  schedule: every 10 minutes
-
-
+  schedule: every 5 minutes
