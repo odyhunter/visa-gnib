@@ -15,10 +15,10 @@
 <form name="schedule-request" method="post" action="/notification_request">
     <div class="form-group" >
     <label class="radio-inline input-lg">
-    <input type="radio" name="appointment_type" id="inlineRadio1" value="Visa" required checked> Visa
+    <input type="radio" name="type" id="inlineRadio1" value="Visa" required checked> Visa
   </label>
   <label class="radio-inline input-lg">
-    <input type="radio" name="appointment_type" id="inlineRadio2" value="GNIB"> GNIB
+    <input type="radio" name="type" id="inlineRadio2" value="GNIB"> GNIB
   </label>
     </div>
   <div class="form-group">
@@ -30,7 +30,7 @@
         <div class="form-group">
             <label for="datetimepicker6">From</label>
             <div class='input-group date'  id='datetimepicker6'>
-                <input type='text' name="start_date" class="form-control" required/>
+                <input type='text' name="date_start" class="form-control" required/>
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -42,7 +42,7 @@
         <div class="form-group">
             <label for="datetimepicker7">To</label>
             <div class='input-group date'  id='datetimepicker7'>
-                <input type='text' name="end_date" class="form-control" required />
+                <input type='text' name="date_end" class="form-control" required />
                 <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
