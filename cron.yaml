@@ -2,37 +2,41 @@
 cron:
 
 - description: initiate 0 visa info update
-  url: /update?days=0&type=visa
+  url: /update?days=0&appt_type=visa
   schedule: every 5 minutes
 
 - description: initiate 25 visa info update
-  url: /update?days=25&type=visa
+  url: /update?days=25&appt_type=visa
   schedule: every 5 minutes
 
 - description: initiate 50 visa info update
-  url: /update?days=50&type=visa
+  url: /update?days=50&appt_type=visa
   schedule: every 5 minutes
 
 - description: initiate 75 visa info update
-  url: /update?days=75&type=visa
+  url: /update?days=75&appt_type=visa
   schedule: every 5 minutes
 
 - description: initiate 0 gnib info update
-  url: /update?days=0&type=gnib
+  url: /update?days=0&appt_type=gnib
   schedule: every 5 minutes
 
 - description: initiate 25 gnib info update
-  url: /update?days=25&type=gnib
+  url: /update?days=25&appt_type=gnib
   schedule: every 5 minutes
 
 - description: initiate 50 gnib info update
-  url: /update?days=50&type=gnib
+  url: /update?days=50&appt_type=gnib
   schedule: every 5 minutes
 
 - description: initiate 75 gnib info update
-  url: /update?days=75&type=gnib
+  url: /update?days=75&appt_type=gnib
   schedule: every 5 minutes
 
 - description: initiate notification check
   url: /notification_check
   schedule: every 5 minutes
+
+- description: cleanup
+  url: /cleanup
+  schedule: every 4 hours
