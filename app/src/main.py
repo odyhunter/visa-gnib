@@ -1,12 +1,13 @@
-import config
-import time
 import threading
+import time
+
 from retrying import retry
 
+import config
+from utils import auto_submission_check
+from utils import cleanup
 from utils import fetch_appointments
 from utils import notification_check
-from utils import cleanup
-from utils import auto_submission_check
 
 
 class FetchAppointmentsThread(threading.Thread):

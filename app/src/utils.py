@@ -1,13 +1,15 @@
 from __future__ import print_function
-import config
-import time
-import json
-import requests
-import logging
-import mailjet_rest
 
-from google.cloud import datastore
+import json
+import logging
+import time
 from datetime import datetime, timedelta, time
+
+import mailjet_rest
+import requests
+from google.cloud import datastore
+
+import config
 
 datastore_api_client = datastore.Client(project=config.GCLOUD_PROJECT)
 
