@@ -12,7 +12,7 @@ RUN pip install -r /app/requirements.txt
 RUN bash ./setup/nodesource_setup.sh
 RUN apt-get install -y nodejs
 RUN npm -g install phantomjs-prebuilt
-
+# this should not be in prod
 
 # MailJet
 ENV MAILJET_API_KEY=e6e5fd4838b27c6e5cfe5324597b9a05 
