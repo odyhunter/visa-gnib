@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3> Thanks for requesting {{ template_values.appt_type }} notification! </h3>
+    <p>Once we find an available slot between
+        <mark>{{ template_values.date_start }}</mark>
+        and
+        <mark> {{ template_values.date_end }} </mark>
+        <br/>
+        We would send email to: <b>
+            <mark>{{ template_values.email }}</mark>
+        </b>
+    </p>
+    <p>
+        <br/>
+    </p>
+{% endblock %}

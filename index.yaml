@@ -1,13 +1,13 @@
 indexes:
 - kind: AppointmentSlot
   properties:
-    - name: appt_type
+    - name: appointment_type
     - name: slot
 
 
 - kind: Notification
   properties:
-    - name: appt_type
+    - name: appointment_type
     - name: date_start
     - name: date_end
     - name: email
