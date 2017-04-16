@@ -101,6 +101,7 @@
                     toolbarPlacement: 'top',
                     minDate: moment(8, "HH").add(2, 'days'),
                     defaultDate: moment(8, "HH").add(2, 'days'),
+                    daysOfWeekDisabled:[0,6],
                 }
             );
             $('#datetimepicker_end').datetimepicker(
@@ -111,12 +112,16 @@
                     viewMode: 'days',
                     ignoreReadonly: true,
                     toolbarPlacement: 'top',
-                    minDate: moment(8, "HH").add(2, 'days'),
-                    defaultDate: moment(21, "HH").add(2, 'days'),
+                    minDate: moment(21, "HH").add(2, 'days'),
+                    defaultDate: moment(21, "HH").add(9, 'days'),
+                    daysOfWeekDisabled:[0,6],
                 }
             );
             $("#datetimepicker_start").on("dp.change", function (e) {
                 $('#datetimepicker_end').data("DateTimePicker").minDate(e.date);
+            });
+            $("#datetimepicker_end").on("dp.change", function (e) {
+                $('#datetimepicker_start').data("DateTimePicker").maxDate(e.date);
             });
         });
     </script>

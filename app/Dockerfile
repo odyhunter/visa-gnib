@@ -21,9 +21,11 @@ ENV MAILJET_SENDER=notification@visa-gnib.info
 ## PROD:
 #ENV GCLOUD_PROJECT=visa-gnib-notifier
 #ENV GOOGLE_APPLICATION_CREDENTIALS=visa-gnib-notifier.json
-#ENTRYPOINT ["python", "src/main.py"]
 
 ## DEV:
 ENV GCLOUD_PROJECT=narasimha-dev-1
 ENV GOOGLE_APPLICATION_CREDENTIALS=narasimha-dev-1.json
+
+
 ENTRYPOINT ["/bin/bash"]
+#ENTRYPOINT ["python", "src/main.py"]

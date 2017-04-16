@@ -4,7 +4,7 @@ metadata:
   name: web-rc
 
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     name: web
     version: v0.2
@@ -17,3 +17,4 @@ spec:
       containers:
       - name: web-rc
         image: gcr.io/visa-gnib-notifier/visa-gnib-web:latest
+        imagePullPolicy: Always
