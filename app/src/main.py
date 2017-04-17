@@ -54,5 +54,5 @@ cleanup_t = CleanupThread()
 cleanup_t.start()
 
 # TODO: autosubmission thread
-# auto_submission_check_t = AutoSubmissionCheckThread()
-# auto_submission_check_t.start()
+auto_submission_check_t = AutoSubmissionCheckThread()
+auto_submission_check_t.start()

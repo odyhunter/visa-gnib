@@ -3,12 +3,12 @@
 {% block content %}
     <h3> Thanks for requesting {{ template_values.appt_type }} notification! </h3>
     <p>Once we find an available slot between
-        <mark>{{ template_values.date_start }}</mark>
+        {{ template_values.date_start }}
         and
-        <mark> {{ template_values.date_end }} </mark>
+        {{ template_values.date_end }}
         <br/>
         We would send email to: <b>
-            <mark>{{ template_values.email }}</mark>
+            {{ template_values.email }}
         </b>
     </p>
     <p>

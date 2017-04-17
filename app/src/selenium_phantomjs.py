@@ -28,7 +28,7 @@ def captcha_solver(browser):
 
 
 def gnib_auto_submission():
-    #TODO: implement both submissions.
+    # TODO: implement both submissions.
     return True
 
 
@@ -80,19 +80,20 @@ def visa_auto_submission(date, slot_id, auto_submission_entity):
         # wait for 8 sec to load:
         browser.implicitly_wait(10)
 
-        # if there is an error on the page
-        if browser.find_element_by_css_selector('#dvGenError'):
-            browser.save_screenshot('error_screenshot_{}.png'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-            print ('Error when submitting: \n')
-            print (browser.find_element_by_css_selector('#dvGenError > spam').text)
-            return False
         # submission successful:
-        elif browser.find_element_by_css_selector('#AppConfirmed'):
+        if browser.find_element_by_css_selector('#AppConfirmed'):
             reference_no = browser.find_element_by_css_selector(
                 '#AppConfirmed>div:nth-child(1)>h3:nth-child(1)').text[14:]  # slice the ID reference no from the str
             apt_date = browser.find_element_by_css_selector('#AppConfirmed>div:nth-child(1)>h3:nth-child(2)').text
             return {'reference_no': reference_no,
                     'appointment_date': apt_date}
+        # if there is an error on the page
+        elif browser.find_element_by_css_selector('#dvGenError'):
+            browser.save_screenshot('error_screenshot_{}.png'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+            print('Error when submitting: \n')
+            print(browser.find_element_by_css_selector('#dvGenError > spam').text)
+            return False
+
         else:
             # something else is wrong:
             browser.save_screenshot('error_screenshot_{}.png'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))

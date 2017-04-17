@@ -149,44 +149,39 @@ def auto_submission_check():
         print('AutoSubmission check for {}'.format(str(auto_submission_entity)))
         print('\n')
         # grab the date_times pairs from these entities
-        # TODO: refactor the form to only accept one date range, and get rid of this JSON
-        all_date_times_dict = json.loads(auto_submission_entity['date_times'])
-        # go over each pair to check if there is a matching appointment slot
-        for i in range(auto_submission_entity['date_times_count']):
-            # prepare the datetime object
-            index_date_time_dict = all_date_times_dict[str(i)]
-            index_date_time_start = datetime.strptime(index_date_time_dict['start'], "%d-%m-%Y %H:%M")
-            index_date_time_end = datetime.strptime(index_date_time_dict['end'], "%d-%m-%Y %H:%M")
-            # create the checking query
-            query = datastore_api_client.query(kind='AppointmentSlot')
-            query.add_filter('appointment_type', '=', auto_submission_entity['appointment_type'])
-            query.add_filter('slot', '>=', index_date_time_start)
-            query.add_filter('slot', '<=', index_date_time_end)
-            list_of_slots = [entity for entity in query.fetch()]
-            if len(list_of_slots) > 0:
-                # match for auto_submission() found trying to register user
-                for slot in list_of_slots:
-                    # try each slot
-                    if auto_submission_entity['appointment_type'] == 'visa':
-                        auto_subm_result = visa_auto_submission(auto_submission_entity=auto_submission_entity,
-                                                                slot_id=slot['slot_id'],
-                                                                date=slot['date'].strftime('%d/%m/%Y'))
-                    elif auto_submission_entity['appointment_type'] == 'gnib':
-                        auto_subm_result = gnib_auto_submission(auto_submission_entity=auto_submission_entity,
-                                                                slot_id=slot['slot_id'],
-                                                                date=slot['date'].strftime('%d/%m/%Y'))
-
-                    # once submit is successful - stop the slots loop
-                    if auto_subm_result:
-                        # notify user with email
-                        send_email(receiver=auto_submission_entity['Email'],
-                                   subject="{} Appointment has been registered".format(
-                                       auto_submission_entity['appointment_type']),
-                                   # TODO: email body text
-                                   body='body: {}'.format('submission successful'.encode('utf-8')))
-                        # delete the auto_submission_entity from DS
-                        datastore_api_client.delete(auto_submission_entity.key)
-                        break
+        # create the checking query
+        query = datastore_api_client.query(kind='AppointmentSlot')
+        query.add_filter('appointment_type', '=', auto_submission_entity['appointment_type'])
+        query.add_filter('slot', '>=', auto_submission_entity['datetime_start'])
+        query.add_filter('slot', '<=', auto_submission_entity['datetime_end'])
+        list_of_slots = [entity for entity in query.fetch()]
+        if len(list_of_slots) > 0:
+            # match for auto_submission() found trying to register user
+            for slot in list_of_slots:
+                # try each slot
+                if auto_submission_entity['appointment_type'] == 'visa':
+                    auto_submission_result = visa_auto_submission(auto_submission_entity=auto_submission_entity,
+                                                                  slot_id=slot['slot_id'],
+                                                                  date=slot['date'].strftime('%d/%m/%Y'))
+                elif auto_submission_entity['appointment_type'] == 'gnib':
+                    auto_submission_result = gnib_auto_submission(auto_submission_entity=auto_submission_entity,
+                                                                  slot_id=slot['slot_id'],
+                                                                  date=slot['date'].strftime('%d/%m/%Y'))
+                # once submit is successful - stop the slots loop
+                if auto_submission_result:
+                    # notify user with email
+                    send_email(receiver=auto_submission_entity['Email'],
+                               subject="Your {} appointment has been registered!"
+                               .format(auto_submission_entity['appointment_type']),
+                               # TODO: nice HTML EMAIL
+                               body='body: {body}, date = {date}, confirmation no = {no}'
+                               .format(body='submission successful'.encode('utf-8'),
+                                       date=auto_submission_result['appointment_date'],
+                                       no=auto_submission_result['reference_no']))
+                    # delete the auto_submission_entity from DS
+                    datastore_api_client.delete(auto_submission_entity.key)
+                    # break out of the list_of_slots loop and continue with other autosuggestion in the BD
+                    break
 
 
 class CaptchaUpload:
