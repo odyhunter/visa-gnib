@@ -141,7 +141,7 @@ def cleanup():
     # delete expired notifications
     datastore_api_client.delete_multi(query_results_keys)
 
-# stachhhhh
+
 def auto_submission_check():
     query = datastore_api_client.query(kind='AutoSubmission')
     # get all AutoSubmission entities for the check

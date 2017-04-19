@@ -87,6 +87,7 @@ def visa_auto_submission(date, slot_id, auto_submission_entity):
             apt_date = browser.find_element_by_css_selector('#AppConfirmed>div:nth-child(1)>h3:nth-child(2)').text
             return {'reference_no': reference_no,
                     'appointment_date': apt_date}
+
         # if there is an error on the page
         elif browser.find_element_by_css_selector('#dvGenError'):
             browser.save_screenshot('error_screenshot_{}.png'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))

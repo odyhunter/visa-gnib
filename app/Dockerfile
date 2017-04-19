@@ -27,5 +27,5 @@ ENV GCLOUD_PROJECT=narasimha-dev-1
 ENV GOOGLE_APPLICATION_CREDENTIALS=narasimha-dev-1.json
 
 
-ENTRYPOINT ["/bin/bash"]
-#ENTRYPOINT ["python", "src/main.py"]
+#ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["python", "src/main.py"]
