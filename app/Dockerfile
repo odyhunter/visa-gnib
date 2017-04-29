@@ -23,8 +23,8 @@ ENV MAILJET_SENDER=notification@visa-gnib.info
 #ENV GOOGLE_APPLICATION_CREDENTIALS=visa-gnib-notifier.json
 
 ## DEV:
-ENV GCLOUD_PROJECT=narasimha-dev-1
-ENV GOOGLE_APPLICATION_CREDENTIALS=narasimha-dev-1.json
+ENV GCLOUD_PROJECT=main-gcloud
+ENV GOOGLE_APPLICATION_CREDENTIALS=service-account.json
 
 
 #ENTRYPOINT ["/bin/bash"]

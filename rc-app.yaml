@@ -16,5 +16,5 @@ spec:
     spec:
       containers:
       - name: app-container
-        image: gcr.io/visa-gnib-notifier/visa-gnib-app:latest
+        image: gcr.io/main-gcloud/visa-gnib-app:latest
         imagePullPolicy: Always

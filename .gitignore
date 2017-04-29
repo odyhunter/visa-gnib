@@ -1,6 +1,8 @@
-
+.DS_Store
 app/visa-gnib-notifier.json
-
+.DS_Store
+web/app/__pycache__/
+web/app/service-account.json
 .idea/*
 
 app/narasimha-dev-1.json
