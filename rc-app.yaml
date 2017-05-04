@@ -7,12 +7,12 @@ spec:
   replicas: 1
   selector:
     name: app
-    version: v0.2
+    version: v0.3
   template:
     metadata:
       labels:
         name: app
-        version: v0.2
+        version: v0.3
     spec:
       containers:
       - name: app-container

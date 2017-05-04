@@ -27,5 +27,5 @@ ENV GCLOUD_PROJECT=main-gcloud
 ENV GOOGLE_APPLICATION_CREDENTIALS=service-account.json
 
 
-#ENTRYPOINT ["/bin/bash"]
-ENTRYPOINT ["python", "src/main.py"]
+#CMD ["/bin/bash"]
+CMD ["python", "src/main.py"]
