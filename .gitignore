@@ -1,5 +1,5 @@
 app/visa-gnib-notifier.json
-web/app/service-account.json
+web/service-account.json
 venv/
 *.pyc
 .idea/
