@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <div class="row">
+        <div class="container-fluid col-xs-10 col-sm-4">
+            <h2>Available GNIB appointment slots:</h2>
+            <p><a href="https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/AppSelect?OpenForm">Register here</a>
+            </p>
+            <div class="table">
+                <table class="table table-hover">
+                    <tbody>
+                    {% for slot in template_values %}
+                        <tr>
+                            <th>{{ slot }} </th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>   
+            </div>
+        </div>
+        <div class="container-fluid col-xs-10 col-sm-offset-2 col-sm-4">
+          <h2> GNIB appointment notification </h2>
+          <p> Receive <b>one email </b> with the newly discovered Visa slots for the selected date range.<br/>
+              Once request is matched app will <b>delete it and your email</b> from the database, so no spam :)
+          </p>
+          <br/>
+            <form name="schedule-request" method="post" action="/notification_request">
+                <div class="form-group">
+                    <label for="email-input">Email address</label>
+                    <input type="email" class="form-control" id="email-input" name="email"
+                           placeholder="example@mail.com" required>
+                </div>
+                <input name="appointment_type" value="gnib" type="hidden">
+                <div class="form-group datetimepicker">
+                    <label for="date_start">From</label>
+                    <input type='text' readonly="true" class="form-control" id='datetimepicker_start' name="date_start" required/>
+                </div>
+                <div class="form-group datetimepicker">
+                    <label for="date_end">To</label>
+                    <input type='text' readonly="true" class="form-control" id='datetimepicker_end' name="date_end" required/>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
