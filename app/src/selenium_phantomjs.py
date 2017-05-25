@@ -44,32 +44,28 @@ def visa_auto_submission(date, slot_id, auto_submission_entity):
     """
     print ('in the visa_autosummission func')
     print (str(auto_submission_entity))
-    with webdriver.PhantomJS() as browser:
+    try:
+        browser = webdriver.PhantomJS()
         browser.get('https://reentryvisa.inis.gov.ie/website/INISOA/IOA.nsf/AppointmentSelection?OpenForm')
         # Click the agree btn
         browser.find_element_by_css_selector('#btCom').click()
-        # Given Name
-        browser.find_element_by_css_selector('#GivenName').send_keys(auto_submission_entity.GivenName)
-        # Surname
-        browser.find_element_by_css_selector('#Surname').send_keys(auto_submission_entity.SurName)
+        browser.find_element_by_css_selector('#GivenName').send_keys(auto_submission_entity['GivenName'])
+        browser.find_element_by_css_selector('#Surname').send_keys(auto_submission_entity['SurName'])
         # Set Date of Birth:
-        browser.execute_script('$("#DOB").val("{}")'.format(auto_submission_entity.DOB))
-        # Email
-        browser.find_element_by_css_selector('#Email').send_keys(auto_submission_entity.Email)
-        # Confirm Email
-        browser.find_elements_by_css_selector('#EmailConfirm').send_keys(auto_submission_entity.Email)
-        # Appointment Type
-        browser.execute_script('$("#AppointType").val("{}")'.format(auto_submission_entity.Individual_or_Family))
+        browser.execute_script('$("#DOB").val("{}")'.format(auto_submission_entity['DOB']))
+        browser.find_element_by_css_selector('#Email').send_keys(auto_submission_entity['Email'])
+        browser.find_element_by_css_selector('#EmailConfirm').send_keys(auto_submission_entity['Email'])
+        # based on the FamAppYN answer figure out what should be passed ot the AppointmentType field
+        browser.execute_script('$("#AppointType").val("{}")'.format(
+            'Individual' if auto_submission_entity['FamAppYN'] == 'No' else 'Family'))
         # Number of Applicants
-        browser.execute_script('$("#AppsNum").val("{}")'.format(auto_submission_entity.applicants))
-        # Passport Number
-        browser.find_element_by_css_selector('#PassportNo').send_keys(auto_submission_entity.PassportNo)
-        # GNIB Number
-        browser.find_element_by_css_selector('#GNIBNo').send_keys(auto_submission_entity.GNIBNo)
+        browser.execute_script('$("#AppsNum").val("{}")'.format(auto_submission_entity['applicants']))
+        browser.find_element_by_css_selector('#PassportNo').send_keys(auto_submission_entity['PassportNo'])
+        browser.find_element_by_css_selector('#GNIBNo').send_keys(auto_submission_entity['GNIBNo'])
         # Nationality
-        browser.execute_script('$("#Nationality").val("{}")'.format(auto_submission_entity.Nationality))
+        browser.execute_script('$("#Nationality").val("{}")'.format(auto_submission_entity['Nationality']))
         # Type of visa
-        browser.execute_script('$("#VisaType").val("{}")'.format(auto_submission_entity.multi_or_single))
+        browser.execute_script('$("#VisaType").val("{}")'.format(auto_submission_entity['multi_or_single']))
         # Set the appointment date
         browser.execute_script('$("#Appdate").val("{}")'.format(date))
         # Call JS function bookit() passing the appointment ID as a parameter to invoke the booking.
@@ -104,6 +100,9 @@ def visa_auto_submission(date, slot_id, auto_submission_entity):
             print('Error when submitting: \n')
             print(browser.find_element_by_css_selector('#dvGenError > spam').text)
             return False
+    finally:
+        print ('closing browser')
+        browser.close()
 
 
 class CaptchaUpload:

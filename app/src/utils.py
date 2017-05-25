@@ -149,8 +149,8 @@ def auto_submission_check():
 
         query = datastore_api_client.query(kind='AppointmentSlot')
         query.add_filter('appointment_type', '=', auto_submission_entity['appointment_type'])
-        query.add_filter('slot', '<', auto_submission_entity['datetime_start'])
-        #query.add_filter('slot', '>', auto_submission_entity['datetime_end'])
+        query.add_filter('slot', '>', auto_submission_entity['datetime_start'])
+        query.add_filter('slot', '<', auto_submission_entity['datetime_end'])
         list_of_slots = [entity for entity in query.fetch()]
         print('list of slots matching the search query:' + str(list_of_slots))
         if len(list_of_slots) > 0:
