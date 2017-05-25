@@ -145,7 +145,7 @@ def auto_submission_check():
     query = datastore_api_client.query(kind='AutoSubmission')
     # get all AutoSubmission entities for the check
     for auto_submission_entity in query.fetch():
-        print('AutoSubmission check for {}'.format(str(auto_submission_entity)))
+        logging.log('AutoSubmission check for {}'.format(str(auto_submission_entity)))
         # grab the date_times pairs from these entities
         # create the checking query
         query = datastore_api_client.query(kind='AppointmentSlot')
@@ -153,7 +153,7 @@ def auto_submission_check():
         query.add_filter('slot', '>=', auto_submission_entity['datetime_start'])
         query.add_filter('slot', '<=', auto_submission_entity['datetime_end'])
         list_of_slots = [entity for entity in query.fetch()]
-        print('list of slots:' + str(list_of_slots))
+        logging.log('list of slots:' + str(list_of_slots))
         if len(list_of_slots) > 0:
             # match for auto_submission() found trying to register user
             for slot in list_of_slots:
