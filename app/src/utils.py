@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import json
-import logging
 import mailjet_rest
 import config
 
@@ -35,7 +34,6 @@ def send_email(receiver, subject, body):
         'Recipients': [{'Email': receiver}]
     }
     result = client.send.create(data=data)
-    logging.info(result)
 
 
 def notify_user(notification, list_of_slots):
@@ -56,7 +54,7 @@ def notify_user(notification, list_of_slots):
                    subject="New {} Appointment".format(notification['appointment_type']),
                    body=body, )
         # delete the notification object from datastore
-        logging.info(
+        print(
             'email was send to {}, notification id = {} was deleted'.format(notification['email'], notification.key.id))
         datastore_api_client.delete(notification.key)
 
@@ -145,15 +143,16 @@ def auto_submission_check():
     query = datastore_api_client.query(kind='AutoSubmission')
     # get all AutoSubmission entities for the check
     for auto_submission_entity in query.fetch():
-        logging.log('AutoSubmission check for {}'.format(str(auto_submission_entity)))
+        print('AutoSubmission check for {}'.format(str(auto_submission_entity)))
         # grab the date_times pairs from these entities
         # create the checking query
+
         query = datastore_api_client.query(kind='AppointmentSlot')
         query.add_filter('appointment_type', '=', auto_submission_entity['appointment_type'])
-        query.add_filter('slot', '>=', auto_submission_entity['datetime_start'])
-        query.add_filter('slot', '<=', auto_submission_entity['datetime_end'])
+        query.add_filter('slot', '<', auto_submission_entity['datetime_start'])
+        #query.add_filter('slot', '>', auto_submission_entity['datetime_end'])
         list_of_slots = [entity for entity in query.fetch()]
-        logging.log('list of slots:' + str(list_of_slots))
+        print('list of slots matching the search query:' + str(list_of_slots))
         if len(list_of_slots) > 0:
             # match for auto_submission() found trying to register user
             for slot in list_of_slots:

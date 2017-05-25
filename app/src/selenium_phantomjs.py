@@ -42,6 +42,8 @@ def visa_auto_submission(date, slot_id, auto_submission_entity):
     :return: reference_no, apt_date - tuple with to strings confirming the registration. 
     If registration is not successful returns - False
     """
+    print ('in the visa_autosummission func')
+    print (str(auto_submission_entity))
     with webdriver.PhantomJS() as browser:
         browser.get('https://reentryvisa.inis.gov.ie/website/INISOA/IOA.nsf/AppointmentSelection?OpenForm')
         # Click the agree btn

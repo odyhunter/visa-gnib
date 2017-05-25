@@ -1,5 +1,6 @@
 import config
 from google.cloud import datastore
+from datetime import datetime
 
 datastore_api_client = datastore.Client(project=config.GCLOUD_PROJECT)
 
@@ -30,8 +31,8 @@ def create_auto_submission(request):
     # [Set the fields common for both appointments]
     auto_submission_entity['GNIBNo'] = request.form['GNIBNo']
     auto_submission_entity['appointment_type'] = appointment_type
-    auto_submission_entity['datetime_start'] = request.form['datetime_start']
-    auto_submission_entity['datetime_end'] = request.form['datetime_end']
+    auto_submission_entity['datetime_start'] = datetime.strptime(request.form['datetime_start'], "%d-%m-%Y %H:%M")
+    auto_submission_entity['datetime_end'] = datetime.strptime(request.form['datetime_end'], "%d-%m-%Y %H:%M")
     auto_submission_entity['Email'] = request.form['Email']
     auto_submission_entity['GivenName'] = request.form['GivenName']
     auto_submission_entity['SurName'] = request.form['SurName']
