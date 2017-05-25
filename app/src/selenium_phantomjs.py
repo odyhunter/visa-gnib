@@ -5,6 +5,7 @@ from datetime import datetime
 from os.path import exists
 from time import sleep
 
+from selenium.common.exceptions import NoSuchElementException
 
 YEAR_CSS_SELECTOR = 'body > div > div.datepicker-years > table > tbody > tr > td > span.year'
 MONTH_CSS_SELECTOR = 'body > div > div.datepicker-months > table > tbody > tr > td > span'
@@ -59,7 +60,7 @@ def visa_auto_submission(date, slot_id, auto_submission_entity):
         browser.execute_script('$("#AppointType").val("{}")'.format(
             'Individual' if auto_submission_entity['FamAppYN'] == 'No' else 'Family'))
         # Number of Applicants
-        browser.execute_script('$("#AppsNum").val("{}")'.format(auto_submission_entity['applicants']))
+        browser.execute_script('$("#AppsNum").val("{}")'.format(auto_submission_entity['FamAppNo']))
         browser.find_element_by_css_selector('#PassportNo').send_keys(auto_submission_entity['PassportNo'])
         browser.find_element_by_css_selector('#GNIBNo').send_keys(auto_submission_entity['GNIBNo'])
         # Nationality
@@ -80,25 +81,24 @@ def visa_auto_submission(date, slot_id, auto_submission_entity):
         browser.implicitly_wait(10)
 
         # submission successful:
-        if browser.find_element_by_css_selector('#AppConfirmed'):
+        try:
+            browser.find_element_by_css_selector('#AppConfirmed')
             reference_no = browser.find_element_by_css_selector(
                 '#AppConfirmed>div:nth-child(1)>h3:nth-child(1)').text[14:]  # slice the ID reference no from the str
             apt_date = browser.find_element_by_css_selector('#AppConfirmed>div:nth-child(1)>h3:nth-child(2)').text
             return {'reference_no': reference_no,
                     'appointment_date': apt_date}
-
+        except NoSuchElementException as e:
         # if there is an error on the page
-        elif browser.find_element_by_css_selector('#dvGenError'):
             browser.save_screenshot('error_screenshot_{}.png'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
             print('Error when submitting: \n')
-            print(browser.find_element_by_css_selector('#dvGenError > spam').text)
+            print (e)
             return False
-
-        else:
+        except Exception as e:
             # something else is wrong:
             browser.save_screenshot('error_screenshot_{}.png'.format(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-            print('Error when submitting: \n')
-            print(browser.find_element_by_css_selector('#dvGenError > spam').text)
+            print('Error when submitting: \n' + e)
+
             return False
     finally:
         print ('closing browser')
