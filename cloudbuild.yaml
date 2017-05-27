@@ -1,9 +1,22 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/web', 'web/' ]
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/web:${REVISION_ID}', 'web/' ]
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/app', 'app/' ]
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/app:${REVISION_ID}', 'app/' ]
+  - name: 'gcr.io/cloud-containers/hyperkube:v1.5.3'
+    env: ["KUBECONFIG=/workspace/kubeconfig"]
+    entrypoint: '/hypercube'
+    args: ['kubectl','set', 'image', 'deployment/web-deployment', 'web=gcr.io/visa-gnib-notifier/web:${REVISION_ID}']
+  - name: 'gcr.io/cloud-containers/hyperkube:v1.5.3'
+    env: ["KUBECONFIG=/workspace/kubeconfig"]
+    entrypoint: '/hypercube'
+    args: ['kubectl','set', 'image', 'deployment/app-deployment', 'web=gcr.io/visa-gnib-notifier/app:${REVISION_ID}']
+
+  - name: 'gcr.io/cloud-containers/hyperkube:v1.5.3'
+    env: ["KUBECONFIG=/workspace/kubeconfig"]
+    entrypoint: '/hypercube'
+    args: ['kubectl','apply', '-f', 'workspace/k8s-all-config.yaml']
 
 images:
-  - 'gcr.io/$PROJECT_ID/web'
-  - 'gcr.io/$PROJECT_ID/app'
+  - 'gcr.io/$PROJECT_ID/web:${REVISION_ID}'
+  - 'gcr.io/$PROJECT_ID/app:${REVISION_ID}'
