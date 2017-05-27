@@ -1,8 +1,10 @@
-import config
+import os
 from google.cloud import datastore
 from datetime import datetime
 
-datastore_api_client = datastore.Client(project=config.GCLOUD_PROJECT)
+
+GCLOUD_PROJECT = os.environ['GCLOUD_PROJECT']
+datastore_api_client = datastore.Client(project=GCLOUD_PROJECT)
 
 
 def create_auto_submission(request):
