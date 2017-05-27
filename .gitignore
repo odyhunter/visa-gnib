@@ -3,3 +3,6 @@ web/service-account.json
 venv/
 *.pyc
 .idea/
+dev-secretes.yaml
+dev-configmap.yaml
+
