@@ -1,13 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: web-lb
+  name: web-lb2
 spec:
-  selector:
-    app: web
+  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
-      nodePort: 30061
-  type: LoadBalancer
+      targetPort: 80c
+  selector:
+    name: web-deployment

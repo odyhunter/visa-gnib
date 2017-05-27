@@ -1,31 +1,16 @@
-FROM ubuntu:latest
-
-RUN apt-get update -y
-RUN apt-get install -y python-pip python-dev build-essential libfontconfig curl python-software-properties
-
-COPY . /app
-WORKDIR /app
-
-RUN pip install -r /app/requirements.txt
-
-# Nodejs + NPM + PhantomJS
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
-RUN apt-get install -y nodejs
-RUN npm -g install -y phantomjs-prebuilt
+FROM
 
 # MailJet
 ENV MAILJET_API_KEY=e6e5fd4838b27c6e5cfe5324597b9a05 
 ENV MAILJET_SECRET_KEY=c91ca692e3cc27bd1093f5cd086e649f 
 ENV MAILJET_SENDER=notification@visa-gnib.info
 
+COPY ./src/ /app/
+COPY
 ## DEV:
-#ENV GCLOUD_PROJECT=visa-gnib-notifier
-#ENV GOOGLE_APPLICATION_CREDENTIALS=visa-gnib-notifier.json
-
-## DEV:
-ENV GCLOUD_PROJECT=main-gcloud
-ENV GOOGLE_APPLICATION_CREDENTIALS=service-account.json
+ENV GCLOUD_PROJECT=visa-gnib-notifier
+ENV GOOGLE_APPLICATION_CREDENTIALS=/app/visa-gnib-notifier.json
 
 
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
 #CMD ["python", "src/main.py"]
