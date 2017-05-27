@@ -3,7 +3,7 @@ steps:
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/web:${REVISION_ID}', 'web/' ]
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/app:${REVISION_ID}', 'app/' ]
-  - name: 'gcr.io/cloud-containers/hyperkube:v1.5.3'
+  - name: 'gcr.io/cloud-containers/hyperkube'
     env: ["KUBECONFIG=/workspace/kubeconfig"]
     entrypoint: '/hypercube'
     args: ['kubectl','set', 'image', 'deployment/web-deployment', 'web=gcr.io/visa-gnib-notifier/web:${REVISION_ID}']
