@@ -1,4 +1,4 @@
-FROM
+FROM  gcr.io/visa-gnib-notifier/visa-gnib-base-app
 
 # MailJet
 ENV MAILJET_API_KEY=e6e5fd4838b27c6e5cfe5324597b9a05 
@@ -12,5 +12,4 @@ ENV GCLOUD_PROJECT=visa-gnib-notifier
 ENV GOOGLE_APPLICATION_CREDENTIALS=/app/visa-gnib-notifier.json
 
 
-#CMD ["/bin/bash"]
-#CMD ["python", "src/main.py"]
+CMD ["python", "src/main.py"]
