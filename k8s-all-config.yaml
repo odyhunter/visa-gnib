@@ -12,34 +12,23 @@ spec:
       labels:
         name: web
     spec:
-      volumes:
-        - name: secret
-          secret:
-            secretName: gcloud-secret
       containers:
       - name: web
-        image: gcr.io/visa-gnib-notifier/visa-gnib-web:latest
+        image: gcr.io/visa-gnib-notifier/web:latest
         imagePullPolicy: Always
-        volumeMounts:
-          - name: secret
-            mountPath: "/mnt"
-            readOnly: true
         env:
-          - name: DEBUG
-            valueFrom:
-              secretKeyRef:
-                name: debug
-                key: debug
           - name: GCLOUD_PROJECT
             valueFrom:
-              secretKeyRef:
-                name: gcloud-secret
-                key: gcloud-project
-          - name: GOOGLE_APPLICATION_CREDENTIALS
+              configMapKeyRef:
+                name: configmap
+                key: GCLOUD_PROJECT
+          - name: CREDENTIALS
             valueFrom:
               configMapKeyRef:
-                name: google-application-credentials
-                key: google-application-credentials
+                # The ConfigMap containing the value you want to assign to GOOGLE_APPLICATION_CREDENTIALS
+                name: configmap
+                # Specify the key associated with the value
+                key: CREDENTIALS
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -57,35 +46,35 @@ spec:
     spec:
       containers:
       - name: app
-        image: gcr.io/visa-gnib-notifier/visa-gnib-app:latest
+        image: gcr.io/visa-gnib-notifier/app:latest
         imagePullPolicy: Always
         env:
           - name: GCLOUD_PROJECT
             valueFrom:
-              secretKeyRef:
-                name: gcloud-secret
-                key: gcloud-project
-#          - name: GOOGLE_APPLICATION_CREDENTIALS
-#            valueFrom:
-#              secretKeyRef:
-#                name: gcloud-secret
-#                key: google-application-credentials
+              configMapKeyRef:
+                name: configmap
+                key: GCLOUD_PROJECT
+          - name: CREDENTIALS
+            valueFrom:
+              configMapKeyRef:
+                name: configmap
+                key: CREDENTIALS
+
           - name: MAILJET_API_KEY
             valueFrom:
-              secretKeyRef:
-                name: mailjet
+              configMapKeyRef:
+                name: configmap
                 key: MAILJET_API_KEY
           - name: MAILJET_SECRET_KEY
             valueFrom:
-              secretKeyRef:
-                name: mailjet
+              configMapKeyRef:
+                name: configmap
                 key: MAILJET_SECRET_KEY
           - name: MAILJET_SENDER
             valueFrom:
-              secretKeyRef:
-                name: mailjet
+              configMapKeyRef:
+                name: configmap
                 key: MAILJET_SENDER
-
 ---
 apiVersion: v1
 kind: Service
@@ -99,4 +88,3 @@ spec:
       targetPort: 80
   selector:
     name: web
-
