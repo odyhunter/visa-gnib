@@ -6,16 +6,17 @@ steps:
 
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ["KUBECONFIG=/workspace/kubeconfig"]
-    entrypoint: '/hypercube'
+    entrypoint: '/hyperkube'
     args: ['kubectl','set', 'image', 'deployment/web-deployment', 'web=gcr.io/visa-gnib-notifier/web:${REVISION_ID}']
+
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ['KUBECONFIG=/workspace/kubeconfig']
-    entrypoint: '/hypercube'
+    entrypoint: '/hyperkube'
     args: ['kubectl','set', 'image', 'deployment/app-deployment', 'web=gcr.io/visa-gnib-notifier/app:${REVISION_ID}']
-    
+
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ['KUBECONFIG=/workspace/kubeconfig']
-    entrypoint: '/hypercube'
+    entrypoint: '/hyperkube'
     args: ['kubectl','apply', '-f', 'workspace/k8s-all-config.yaml']
 
 images:
