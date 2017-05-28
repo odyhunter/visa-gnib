@@ -6,7 +6,11 @@ steps:
 
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
 <<<<<<< HEAD
+<<<<<<< HEAD
     env: ["KUBECONFIG=/workspace/prod-visa-gnib.kubeconfig"]
+=======
+    env: ["KUBECONFIG=/workspace/kubeconfig"]
+>>>>>>> parent of d536c52... added create prod config shell script copied from kelseyhightower
 =======
     env: ["KUBECONFIG=/workspace/kubeconfig"]
 >>>>>>> parent of d536c52... added create prod config shell script copied from kelseyhightower
@@ -15,7 +19,11 @@ steps:
 
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
 <<<<<<< HEAD
+<<<<<<< HEAD
     env: ['KUBECONFIG=/workspace/prod-visa-gnib	.kubeconfig']
+=======
+    env: ['KUBECONFIG=/workspace/kubeconfig']
+>>>>>>> parent of d536c52... added create prod config shell script copied from kelseyhightower
 =======
     env: ['KUBECONFIG=/workspace/kubeconfig']
 >>>>>>> parent of d536c52... added create prod config shell script copied from kelseyhightower
@@ -24,7 +32,11 @@ steps:
 
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
 <<<<<<< HEAD
+<<<<<<< HEAD
     env: ['KUBECONFIG=/workspace/prod-visa-gnib.kubeconfig']
+=======
+    env: ['KUBECONFIG=/workspace/kubeconfig']
+>>>>>>> parent of d536c52... added create prod config shell script copied from kelseyhightower
 =======
     env: ['KUBECONFIG=/workspace/kubeconfig']
 >>>>>>> parent of d536c52... added create prod config shell script copied from kelseyhightower
