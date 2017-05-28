@@ -7,12 +7,12 @@ steps:
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ["KUBECONFIG=/workspace/prod-visa-gnib.kubeconfig"]
     entrypoint: '/hyperkube'
-    args: ['kubectl','set', 'image', 'deployment/web-deployment', 'web=gcr.io/visa-gnib-notifier/web:${REVISION_ID}']
+    args: ['kubectl','set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${REVISION_ID}']
 
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ['KUBECONFIG=/workspace/prod-visa-gnib	.kubeconfig']
     entrypoint: '/hyperkube'
-    args: ['kubectl','set', 'image', 'deployment/app-deployment', 'web=gcr.io/visa-gnib-notifier/app:${REVISION_ID}']
+    args: ['kubectl','set', 'image', 'deployment/app-deployment', 'app=gcr.io/$PROJECT_ID/app:${REVISION_ID}']
 
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ['KUBECONFIG=/workspace/prod-visa-gnib.kubeconfig']
