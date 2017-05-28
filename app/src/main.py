@@ -43,15 +43,15 @@ class CleanupThread(threading.Thread):
             time.sleep(14400)  # 4 hours
 
 
-# Create and Run Threads
-# fetchAppointments_t = FetchAppointmentsThread()
-# fetchAppointments_t.start()
-#
-# notificationCheck_t = NotificationCheckThread()
-# notificationCheck_t.start()
-#
-# cleanup_t = CleanupThread()
-# cleanup_t.start()
+#Create and Run Threads
+fetchAppointments_t = FetchAppointmentsThread()
+fetchAppointments_t.start()
+
+notificationCheck_t = NotificationCheckThread()
+notificationCheck_t.start()
+
+cleanup_t = CleanupThread()
+cleanup_t.start()
 
 auto_submission_check_t = AutoSubmissionCheckThread()
 auto_submission_check_t.start()

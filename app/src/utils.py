@@ -11,7 +11,7 @@ from requests import get
 from selenium_phantomjs import visa_auto_submission, gnib_auto_submission
 
 
-datastore_api_client = datastore.Client(project=config.GCLOUD_PROJECT)
+datastore_api_client = datastore.Client()
 
 
 def make_header(header, appointment_type):
