@@ -1,6 +1,7 @@
 #!/bin/bash
 
 gcloud container clusters get-credentials prod-visa-gnib --zone europe-west1-c
+
 SERVER=$(gcloud container clusters describe prod-visa-gnib	\
   --format 'value(endpoint)')
 CERTIFICATE_AUTHORITY_DATA=$(gcloud container clusters describe prod-visa-gnib	 \
