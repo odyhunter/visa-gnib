@@ -27,65 +27,64 @@ spec:
               configMapKeyRef:
                 name: configmap
                 key: CREDENTIALS
-          - name: VERSION
-            value: 
+          - name: VERIOSN
+            value: v1.6
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: app
+  template:
+    metadata:
+      labels:
+        name: app
+    spec:
+      containers:
+      - name: app
+        image: gcr.io/visa-gnib-notifier/app:v1.6
+        imagePullPolicy: Always
+        env:
+          - name: GCLOUD_PROJECT
+            valueFrom:
+              configMapKeyRef:
+                name: configmap
+                key: GCLOUD_PROJECT
+          - name: CREDENTIALS
+            valueFrom:
+              configMapKeyRef:
+                name: configmap
+                key: CREDENTIALS
 
-
-#apiVersion: extensions/v1beta1
-#kind: Deployment
-#metadata:
-#  name: app-deployment
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      name: app
-#  template:
-#    metadata:
-#      labels:
-#        name: app
-#    spec:
-#      containers:
-#      - name: app
-#        image: gcr.io/visa-gnib-notifier/app:v1.6
-#        imagePullPolicy: Always
-#        env:
-#          - name: GCLOUD_PROJECT
-#            valueFrom:
-#              configMapKeyRef:
-#                name: configmap
-#                key: GCLOUD_PROJECT
-#          - name: CREDENTIALS
-#            valueFrom:
-#              configMapKeyRef:
-#                name: configmap
-#                key: CREDENTIALS
-#
-#          - name: MAILJET_API_KEY
-#            valueFrom:
-#              configMapKeyRef:
-#                name: configmap
-#                key: MAILJET_API_KEY
-#          - name: MAILJET_SECRET_KEY
-#            valueFrom:
-#              configMapKeyRef:
-#                name: configmap
-#                key: MAILJET_SECRET_KEY
-#          - name: MAILJET_SENDER
-#            valueFrom:
-#              configMapKeyRef:
-#                name: configmap
-#                key: MAILJET_SENDER
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: web-lb
-#spec:
-#  type: LoadBalancer
-#  ports:
-#    - protocol: TCP
-#      port: 80
-#      targetPort: 80
-#  selector:
-#    name: web
+          - name: MAILJET_API_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: configmap
+                key: MAILJET_API_KEY
+          - name: MAILJET_SECRET_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: configmap
+                key: MAILJET_SECRET_KEY
+          - name: MAILJET_SENDER
+            valueFrom:
+              configMapKeyRef:
+                name: configmap
+                key: MAILJET_SENDER
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-lb
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  selector:
+    name: web
