@@ -10,18 +10,20 @@
 steps:
 ## Steps for WEB module
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/web:${TAG_NAME}', 'web/' ]
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/web:${TAG_NAME}', 'web/']
   # push this image to gcr
   - name: 'gcr.io/cloud-builders/docker'
     id: 'web-image-push'
     args: ['push', 'gcr.io/$PROJECT_ID/web']
   # update k8s config to use new image
+
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     id: 'update-conf-web'
-    waitFor: ['web-image-push']
     env: ["KUBECONFIG=/workspace/dev-visa-gnib.kubeconfig"]
     entrypoint: '/hyperkube'
     args: ['kubectl', 'set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${TAG_NAME}']
+    waitFor: ['web-image-push']
+
   # patch the VERSION env variable
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ["KUBECONFIG=/workspace/dev-visa-gnib.kubeconfig"]
