@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: gcr.io/visa-gnib-notifier/web:latest
+        image: gcr.io/visa-gnib-notifier/web:v1.6
         imagePullPolicy: Always
         env:
           - name: GCLOUD_PROJECT
@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: gcr.io/visa-gnib-notifier/app:latest
+        image: gcr.io/visa-gnib-notifier/app:v1.6
         imagePullPolicy: Always
         env:
           - name: GCLOUD_PROJECT
