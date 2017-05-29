@@ -16,7 +16,8 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     id: 'web-image-push'
     args: ['push', 'gcr.io/$PROJECT_ID/web']
-    waitFor: 'web-image-build'
+    waitFor: ['web-image-build']
+
   # update k8s config to use new image
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ["KUBECONFIG=/workspace/dev-kubeconfig"]
