@@ -27,7 +27,7 @@ steps:
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ["KUBECONFIG=/workspace/kubeconfig"]
     entrypoint: '/hyperkube'
-    args: ['kubectl','patch', 'deployment/web-deployment', '{"spec":{"template":{"spec":{"containers":[{"name":"web","env":[{"name":"VERSION","value":${TAG_NAME}}]}]}}}}']
+    args: ['kubectl','patch', 'deployment/web-deployment', '-p', '{"spec":{"template":{"spec":{"containers":[{"name":"web","env":[{"name":"VERSION","value":${TAG_NAME}}]}]}}}}']
 
 
   # build new app image
