@@ -1,6 +1,8 @@
 import os
 import datetime
 
+GCLOUD_PROJECT = os.environ['GCLOUD_PROJECT']
+
 MAILJET_API_KEY = os.environ['MAILJET_API_KEY']
 MAILJET_API_SECRET = os.environ['MAILJET_SECRET_KEY']
 MAILJET_SENDER = os.environ['MAILJET_SENDER']
