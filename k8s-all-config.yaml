@@ -25,9 +25,7 @@ spec:
           - name: CREDENTIALS
             valueFrom:
               configMapKeyRef:
-                # The ConfigMap containing the value you want to assign to GOOGLE_APPLICATION_CREDENTIALS
                 name: configmap
-                # Specify the key associated with the value
                 key: CREDENTIALS
 ---
 apiVersion: extensions/v1beta1
