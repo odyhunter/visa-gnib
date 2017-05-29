@@ -19,7 +19,7 @@ steps:
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ['KUBECONFIG=/workspace/kubeconfig']
     entrypoint: '/hyperkube'
-    args: ['kubectl','apply', '-f', 'workspace/k8s-all-config.yaml']
+    args: ['kubectl','apply', '-f', 'k8s-all-config.yaml']
 
 images:
   - 'gcr.io/$PROJECT_ID/web:${TAG_NAME}'
