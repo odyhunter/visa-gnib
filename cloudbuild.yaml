@@ -17,6 +17,12 @@ steps:
     id: 'deployment-conf-update'
     waitFor: ['image-push']
 
+  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
+    env: ["KUBECONFIG=/workspace/kubeconfig"]
+    entrypoint: '/hyperkube'
+    args: ['kubectl','set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${TAG_NAME}']
+
+
 #  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
 #    env: ["KUBECONFIG=/workspace/kubeconfig"]
 #    entrypoint: '/hyperkube'

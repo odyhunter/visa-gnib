@@ -27,7 +27,12 @@ spec:
               configMapKeyRef:
                 name: configmap
                 key: CREDENTIALS
----
+          - name: VERSION
+            valueFrom:
+              resourceFieldRef:
+                containerName: web
+                resource: image
+
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
