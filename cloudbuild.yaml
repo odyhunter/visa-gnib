@@ -17,13 +17,13 @@ steps:
     id: 'web-image-push'
     args: ['push', 'gcr.io/$PROJECT_ID/web']
     waitFor: ['web-image-build']
-#  # update k8s config to use new image
-#  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
-#    env: ["KUBECONFIG=/workspace/dev-kubeconfig"]
-#    entrypoint: ['/hyperkube']
-#    args: ['kubectl', 'set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${TAG_NAME}']
-#    waitFor: ['web-image-push']
-#    id: 'web-conf-update'
+  # update k8s config to use new image
+  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
+    env: ["KUBECONFIG=/workspace/dev-kubeconfig"]
+    entrypoint: ['/hyperkube']
+    args: ['kubectl', 'set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${TAG_NAME}']
+    waitFor: ['web-image-push']
+    id: 'web-conf-update'
 
 #  # patch the VERSION env variable
 #  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
@@ -48,9 +48,9 @@ steps:
 #    entrypoint: '/hyperkube'
 #    args: ['kubectl','set', 'image', 'deployment/app-deployment', 'app=gcr.io/$PROJECT_ID/app:${TAG_NAME}']
 
-## Update the cluster with new configuration
-#  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
-#    env: ['KUBECONFIG=/workspace/dev-kubeconfig']
-#    entrypoint: '/hyperkube'
-#    args: ['kubectl','apply', '-f', 'k8s-all-config.yaml']
-#    waitFor: ['app-conf-update', 'web-conf-update']
+# Update the cluster with new configuration
+  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
+    env: ['KUBECONFIG=/workspace/dev-kubeconfig']
+    entrypoint: '/hyperkube'
+    args: ['kubectl','apply', '-f', 'k8s-all-config.yaml']
+    waitFor: ['web-conf-update']
