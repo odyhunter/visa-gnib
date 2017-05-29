@@ -1,18 +1,28 @@
+###########################
+# the idea of this config is to:
+# build new image
+# manually push it to gcr
+# update the k8s deployment config file with
+#  image:NEW_TAG and evn:VERSION
+# apply this new config to the cluster supplied in the KUBECONFIG credentials
+###########################
+
 steps:
-   # build new web image
+  # build new web image
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/web:${TAG_NAME}', 'web/' ]
-   # push this image to gcr
+  # push this image to gcr
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/web']
     id: 'web-image-push'
+    args: ['push', 'gcr.io/$PROJECT_ID/web']
+
   # update k8s config to use new image
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
+    id: 'update-conf-web'
+    waitFor: ['web-image-push']
     env: ["KUBECONFIG=/workspace/kubeconfig"]
     entrypoint: '/hyperkube'
     args: ['kubectl','set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${TAG_NAME}']
-    id: 'update-conf-web'
-    waitFor: ['image-push']
 
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ["KUBECONFIG=/workspace/kubeconfig"]
@@ -22,19 +32,21 @@ steps:
 
   # build new app image
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/app:${TAG_NAME}', 'app/' ]
     id: 'build-app-image'
+    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/app:${TAG_NAME}', 'app/' ]
+
   # push new img to gcr
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/web']
     id: 'push-app-image'
+    args: ['push', 'gcr.io/$PROJECT_ID/web']
+
   # update conf with new image
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
+    id: 'update-conf-app'
+    waitFor: ['push-app-image']
     env: ["KUBECONFIG=/workspace/kubeconfig"]
     entrypoint: '/hyperkube'
     args: ['kubectl','set', 'image', 'deployment/app-deployment', 'web=gcr.io/$PROJECT_ID/app:${TAG_NAME}']
-    id: 'update-conf-app'
-    waitFor: ['push-app-image']
 
   # update the cluster with new configuration
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
