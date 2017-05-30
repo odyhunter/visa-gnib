@@ -55,3 +55,4 @@ steps:
     entrypoint: '/hyperkube'
     args: ['kubectl','apply', '-f', 'k8s-all-config.yaml']
     waitFor: ['web-conf-update', 'app-conf-update']
+    
