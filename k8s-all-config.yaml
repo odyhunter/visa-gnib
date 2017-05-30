@@ -27,7 +27,7 @@ spec:
               configMapKeyRef:
                 name: configmap
                 key: CREDENTIALS
-          - name: VERIOSN
+          - name: VERSION
             value: v1.6
 ---
 apiVersion: extensions/v1beta1
