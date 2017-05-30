@@ -1,10 +1,7 @@
-import os
 from google.cloud import datastore
 from datetime import datetime
 
-
-GCLOUD_PROJECT = os.environ['GCLOUD_PROJECT']
-datastore_api_client = datastore.Client(project=GCLOUD_PROJECT)
+datastore_api_client = datastore.Client()
 
 
 def create_auto_submission(request):
@@ -19,13 +16,11 @@ def create_auto_submission(request):
 
     if appointment_type == 'visa':
         auto_submission_entity['multi_or_single'] = request.form['VisaType']
-
     elif appointment_type == 'gnib':
         auto_submission_entity['Category'] = request.form['Category']
         auto_submission_entity['SubCategory'] = request.form['SubCategory']
         auto_submission_entity['ConfirmGNIB'] = request.form['ConfirmGNIB']
         auto_submission_entity['GNIBExDT'] = request.form['GNIBExDT']
-
     else:
         print('appointment_type is not recognized')
         return False
