@@ -3,7 +3,7 @@
 read -p "Please enter your CLUSTER_NAME: " cluster_name
 read -p "Please enter your cluster ZONE: " zone
 
-gcloud container clusters get-credentials $cluster_name --zone europe-west1-d --project visa-gnib-notifier
+gcloud container clusters get-credentials $cluster_name --zone $zone --project visa-gnib-notifier
 
 SERVER=$(gcloud container clusters describe $cluster_name --zone $zone	\
   --format 'value(endpoint)')
@@ -30,11 +30,11 @@ kubectl config set users.cloudbuilder.client-key-data \
   ${CLIENT_KEY_DATA} \
   --kubeconfig $cluster_name.kubeconfig
 
-#kubectl config set-context cloudbuilder \
-#  --cluster=gke \
-#  --user=cloudbuilder \
-#  --kubeconfig $cluster_name.kubeconfig
-#kubectl config use-context cloudbuilder \
-#  --kubeconfig $cluster_name.kubeconfig
+kubectl config set-context cloudbuilder \
+  --cluster=gke \
+  --user=cloudbuilder \
+  --kubeconfig $cluster_name.kubeconfig
+kubectl config use-context cloudbuilder \
+  --kubeconfig $cluster_name.kubeconfig
 
 #gsutil cp production.kubeconfig gs://hightowerlabs/production.kubeconfig

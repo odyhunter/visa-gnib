@@ -24,6 +24,11 @@ steps:
     args: ['kubectl', 'set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${TAG_NAME}']
     waitFor: ['web-image-push']
     id: 'web-conf-update'
+#  # patch the VERSION env variable
+#  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
+#    env: ["KUBECONFIG=/workspace/dev.kubeconfig"]
+#    entrypoint: '/hyperkube'
+#    args: ['kubectl', 'patch', 'deployment/web-deployment', '-p', '{"spec":{"template":{"spec":{"containers":[{"name":"web","env":[{"name":"VERSION","value":"${TAG_NAME}"}]}]}}}}']
 
 ### Steps for APP module
 #  - name: 'gcr.io/cloud-builders/docker'
