@@ -14,16 +14,18 @@ steps:
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/web:${TAG_NAME}', 'web/']
   # push this image to gcr
   - name: 'gcr.io/cloud-builders/docker'
+    id: 'web-image-push'
     args: ['push', 'gcr.io/$PROJECT_ID/web']
     waitFor: ['web-image-build']
-    id: 'web-image-push'
+
   # update k8s config to use new image
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
+    id: 'web-conf-update'
+    waitFor: ['web-image-push']
     env: ["KUBECONFIG=/workspace/dev.kubeconfig"]
     entrypoint: '/hyperkube'
     args: ['kubectl', 'set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${TAG_NAME}']
-    waitFor: ['web-image-push']
-    id: 'web-conf-update'
+
   # patch the VERSION env variable
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ["KUBECONFIG=/workspace/dev.kubeconfig"]
@@ -37,8 +39,8 @@ steps:
   # push new img to gcr
   - name: 'gcr.io/cloud-builders/docker'
     id: 'app-image-push'
+    waitFor: ['app-image-build']
     args: ['push', 'gcr.io/$PROJECT_ID/app']
-    waifFor: ['app-image-build']
   # update conf with new image
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     id: 'app-conf-update'
@@ -52,4 +54,4 @@ steps:
     env: ['KUBECONFIG=/workspace/dev.kubeconfig']
     entrypoint: '/hyperkube'
     args: ['kubectl','apply', '-f', 'k8s-all-config.yaml']
-    waitFor: ['web-conf-update']
+    waitFor: ['web-conf-update', 'app-conf-update']
