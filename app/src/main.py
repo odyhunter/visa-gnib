@@ -28,7 +28,7 @@ class NotificationCheckThread(threading.Thread):
 
 
 class AutoSubmissionCheckThread(threading.Thread):
-    #@retry()
+    @retry()
     def run(self):
         while True:
             auto_submission_check()
@@ -42,8 +42,7 @@ class CleanupThread(threading.Thread):
             cleanup()
             time.sleep(14400)  # 4 hours
 
-
-#Create and Run Threads
+# Create and Run Threads
 fetchAppointments_t = FetchAppointmentsThread()
 fetchAppointments_t.start()
 
