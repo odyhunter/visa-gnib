@@ -8,6 +8,7 @@ data:
   MAILJET_API_KEY: e6e5fd4838b27c6e5cfe5324597b9a05
   MAILJET_SECRET_KEY: c91ca692e3cc27bd1093f5cd086e649f 
   MAILJET_SENDER: notification@visa-gnib.info
+  SQLALCHEMY_DATABASE_URI: mysql://root:UbV1udXNzso3@35.189.193.111/main
   CREDENTIALS: |
     {
       "type": "service_account",

@@ -1,8 +1,8 @@
 from google.cloud import datastore
 from datetime import datetime
 
-datastore_api_client = datastore.Client()
 
+datastore_api_client = datastore.Client()
 
 def create_auto_submission(request):
     """
