@@ -1,4 +1,5 @@
 # https://cloud.google.com/container-builder/docs/concepts/build-requests - values available in this context
+
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/web:${TAG_NAME}', 'web/' ]
@@ -7,9 +8,6 @@ steps:
     args: ['push', 'gcr.io/$PROJECT_ID/web']
     id: 'image-push'
 
-#  - name: 'gcr.io/cloud-builders/docker'
-#    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/app:${TAG_NAME}', 'app/' ]
-#
   - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
     env: ["KUBECONFIG=/workspace/kubeconfig"]
     entrypoint: '/hyperkube'
@@ -22,7 +20,9 @@ steps:
     entrypoint: '/hyperkube'
     args: ['kubectl','set', 'image', 'deployment/web-deployment', 'web=gcr.io/$PROJECT_ID/web:${TAG_NAME}']
 
-
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/app:${TAG_NAME}', 'app/' ]
+#
 #  - name: 'gcr.io/google_containers/hyperkube:v1.5.3'
 #    env: ["KUBECONFIG=/workspace/kubeconfig"]
 #    entrypoint: '/hyperkube'
@@ -33,3 +33,18 @@ steps:
     entrypoint: '/hyperkube'
     args: ['kubectl','apply', '-f', 'k8s-all-config.yaml']
     waitFor: ['deployment-conf-update']
+
+
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["build", "-t", "gcr.io//frontend", "."]
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/my-project/frontend"]
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    gcloud components install kubectl
+    gcloud container clusters get-credentials dev-visa-gnib --zone europe-west1-d
+    kubectl set image deployment/frontend frontend=gcr.io/my-project/frontend
