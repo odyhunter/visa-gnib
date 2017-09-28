@@ -3,6 +3,7 @@ from __future__ import print_function
 import json
 import mailjet_rest
 import config
+from retrying import retry
 
 from google.cloud import datastore
 from datetime import datetime, timedelta, time
@@ -125,17 +126,23 @@ def cleanup():
     query = datastore_api_client.query(kind='Notification')
     query.add_filter('date_end', '<', config.TODAY_plus_2)
     query_results = [entity for entity in query.fetch()]
-    query_results_keys = [ent.key for ent in query_results]
+
     for notification in query_results:
         print('slot not found deleting request for {}'.format(notification.key.id))
         print('date_start = {} date end = {}'.format(notification['date_start'], notification['date_end']))
         send_email(receiver=notification['email'],
-                   subject="Your Appointment for {} was not met".format(notification['appointment_type']),
+                   subject="Your appointment notification for {} was not found".format(notification['appointment_type']),
                    body="Your notification end date ({}) has passed and there were no new appointments. :( \n"
                         "We are deleting this request, please feel free for create a new one here: \n"
                         "http://visa-gnib.info".format(notification['date_end'])
                    )
-    # delete expired notifications
+        # Archive the expired notifications
+        # TODO: keep only unique emails
+        archive_notification_entity = notification
+        archive_notification_entity.key = datastore_api_client.key('Archive_Notification')
+        datastore_api_client.put(archive_notification_entity)
+    # Delete All
+    query_results_keys = [ent.key for ent in query_results]
     datastore_api_client.delete_multi(query_results_keys)
 
 

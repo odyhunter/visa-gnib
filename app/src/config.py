@@ -21,7 +21,7 @@ GNIB_DAYS_UPDATE_RANGE = 90
 # Timeout of SECONDS between the requests
 FETCH_APPOINTMENTS_TIMEOUT = 60
 
-TODAY_plus_2 = datetime.date.today() + datetime.timedelta(days=2)
+TODAY_plus_2 = datetime.datetime.today() + datetime.timedelta(days=2)
 
 HEADERS = {
   'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) '
