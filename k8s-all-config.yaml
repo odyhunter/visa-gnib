@@ -94,26 +94,3 @@ spec:
   selector:
     name: web
 ---
-#apiVersion: apps/v1beta1
-#kind: Deployment
-#metadata:
-#  name: debug
-#spec:
-#  template:
-#    metadata:
-#      labels:
-#        app: debug
-#    spec:
-#      volumes:
-#      - name: google-cloud-key
-#        secret:
-#          secretName: key
-#      containers:
-#      - name: subscriber
-#        image: gcr.io/google-samples/pubsub-sample:v1
-#        volumeMounts:
-#        - name: google-cloud-key
-#          mountPath: /var/secrets/google
-#        env:
-#        - name: GOOGLE_APPLICATION_CREDENTIALS
-#          value: /var/secrets/google/key.json

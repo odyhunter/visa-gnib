@@ -3,7 +3,6 @@ from __future__ import print_function
 import json
 import mailjet_rest
 import config
-from retrying import retry
 
 from google.cloud import datastore
 from datetime import datetime, timedelta, time
