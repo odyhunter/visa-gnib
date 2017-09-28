@@ -1,18 +1,11 @@
 appdirs==1.4.0
 beautifulsoup4==4.5.3
-bs4==0.0.1
 click==6.7
 dill==0.2.6
 enum34==1.1.6
 Flask==0.12
 future==0.16.0
 futures==3.0.5
-google-auth==0.5.0
-google-auth-httplib2==0.0.2
-google-cloud==0.22.0
-google-cloud-datastore==0.22.1
-google-cloud-logging==0.22.0
-google-cloud-monitoring==0.22.0
 httplib2==0.10.3
 itsdangerous==0.24
 Jinja2==2.9.5
@@ -29,3 +22,4 @@ rsa==3.4.2
 six==1.10.0
 Werkzeug==0.11.15
 uwsgi==2.0.15
+gunicorn

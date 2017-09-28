@@ -1,5 +1,17 @@
-FROM  gcr.io/visa-gnib-notifier/visa-gnib-base-app
+FROM python
 
+ADD requirements.txt /app/
+
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Nodejs + NPM + PhantomJS
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+RUN apt-get install -y nodejs
+RUN npm -g install -y phantomjs-prebuilt
+
+# App main src files
 COPY ./src/ /app/
+WORKDIR /app/
 
-CMD ["python", "/app/main.py"]
+# Run
+CMD ["python", "main.py"]

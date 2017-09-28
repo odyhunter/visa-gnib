@@ -14,25 +14,24 @@ spec:
     spec:
       containers:
       - name: web
-        image: gcr.io/visa-gnib-notifier/web:v1.6
+        image: gcr.io/visa-gnib-notifier/web
         imagePullPolicy: Always
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /var/secrets/google
         env:
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            value: /var/secrets/google/key.json
           - name: GCLOUD_PROJECT
             valueFrom:
               configMapKeyRef:
                 name: configmap
                 key: GCLOUD_PROJECT
-          - name: CREDENTIALS
-            valueFrom:
-              configMapKeyRef:
-                name: configmap
-                key: CREDENTIALS
-          - name: VERSION
-            valueFrom:
-              resourceFieldRef:
-                containerName: web
-                resource: image
-
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: key
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -49,20 +48,19 @@ spec:
     spec:
       containers:
       - name: app
-        image: gcr.io/visa-gnib-notifier/app:v1.6
+        image: gcr.io/visa-gnib-notifier/app
         imagePullPolicy: Always
+        volumeMounts:
+        - name: google-cloud-key
+          mountPath: /var/secrets/google
         env:
+          - name: GOOGLE_APPLICATION_CREDENTIALS
+            value: /var/secrets/google/key.json
           - name: GCLOUD_PROJECT
             valueFrom:
               configMapKeyRef:
                 name: configmap
                 key: GCLOUD_PROJECT
-          - name: CREDENTIALS
-            valueFrom:
-              configMapKeyRef:
-                name: configmap
-                key: CREDENTIALS
-
           - name: MAILJET_API_KEY
             valueFrom:
               configMapKeyRef:
@@ -78,6 +76,10 @@ spec:
               configMapKeyRef:
                 name: configmap
                 key: MAILJET_SENDER
+      volumes:
+      - name: google-cloud-key
+        secret:
+          secretName: key
 ---
 apiVersion: v1
 kind: Service
@@ -91,3 +93,27 @@ spec:
       targetPort: 80
   selector:
     name: web
+---
+#apiVersion: apps/v1beta1
+#kind: Deployment
+#metadata:
+#  name: debug
+#spec:
+#  template:
+#    metadata:
+#      labels:
+#        app: debug
+#    spec:
+#      volumes:
+#      - name: google-cloud-key
+#        secret:
+#          secretName: key
+#      containers:
+#      - name: subscriber
+#        image: gcr.io/google-samples/pubsub-sample:v1
+#        volumeMounts:
+#        - name: google-cloud-key
+#          mountPath: /var/secrets/google
+#        env:
+#        - name: GOOGLE_APPLICATION_CREDENTIALS
+#          value: /var/secrets/google/key.json
