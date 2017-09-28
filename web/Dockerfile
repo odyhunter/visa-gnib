@@ -1,17 +1,15 @@
 FROM python
 
 ENV PYTHONUNBUFFERED 1
-USER root
-EXPOSE 80
 
-RUN pip install --upgrade pip virtualenv
+WORKDIR /app
 
-ADD requirements.txt /tmp/
+ADD requirements.txt .
 
-RUN pip install -U pip
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+RUN pip install -r requirements.txt
 
 COPY ./src /app
 WORKDIR /app
 
+EXPOSE 80
 CMD gunicorn -w 4 main:app -b 0.0.0.0:80
