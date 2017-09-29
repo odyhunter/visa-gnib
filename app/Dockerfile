@@ -2,7 +2,7 @@ FROM python
 
 WORKDIR /app
 
-ADD requirements.txt .
+COPY requirements.txt .
 
 RUN pip install -r /app/requirements.txt
 
@@ -16,3 +16,8 @@ COPY ./src/ .
 
 # Run
 CMD ["python", "main.py"]
+
+
+#RUN pip install virtualenv
+#COPY oldrequirements.txt /tmp/oldrequirements.txt
+#RUN virtualenv /tmp/tmpenv && /tmp/tmpenv/bin/pip install -r /tmp/oldrequirements.txt --src $HOME && rm -r /tmp/tmpenv

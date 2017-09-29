@@ -9,6 +9,7 @@ from utils import cleanup
 from utils import fetch_appointments
 from utils import notification_check
 
+
 # https://docs.python.org/3.6/library/sched.html
 class FetchAppointmentsThread(threading.Thread):
     @retry()

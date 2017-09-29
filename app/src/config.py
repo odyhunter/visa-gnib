@@ -24,9 +24,9 @@ FETCH_APPOINTMENTS_TIMEOUT = 60
 TODAY_plus_2 = datetime.datetime.today() + datetime.timedelta(days=2)
 
 HEADERS = {
-  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) '
-                ' Chrome/52.0.2743.116 Safari/537.36',
-  'Upgrade-Insecure-Requests': '1',
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-  'Accept-Language': 'en-US,en;q=0.8,ru;q=0.6,pl;q=0.4,de;q=0.2,uk;q=0.2,it;q=0.2',
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) '
+                  ' Chrome/52.0.2743.116 Safari/537.36',
+    'Upgrade-Insecure-Requests': '1',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.8,ru;q=0.6,pl;q=0.4,de;q=0.2,uk;q=0.2,it;q=0.2',
 }
