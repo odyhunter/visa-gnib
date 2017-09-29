@@ -139,10 +139,10 @@ def cleanup():
         # TODO: keep only unique emails
         archive_notification_entity = notification
         archive_notification_entity.key = datastore_api_client.key('Archive_Notification')
+        # create an archive
         datastore_api_client.put(archive_notification_entity)
-    # Delete All
-    query_results_keys = [ent.key for ent in query_results]
-    datastore_api_client.delete_multi(query_results_keys)
+        # delete that key
+        datastore_api_client.delete(notification.key)
 
 
 def auto_submission_check():
