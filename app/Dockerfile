@@ -1,23 +1,22 @@
-FROM python
+#FROM python
 
-WORKDIR /app
+#WORKDIR /app
+#
+#COPY requirements.txt .
+#
+#RUN pip install -r /app/requirements.txt
+#
+## Nodejs + NPM + PhantomJS
+#RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+#RUN apt-get install -y nodejs
+#RUN npm -g install -y phantomjs-prebuilt
+#
+## App main src files
+#COPY ./src/ .
+#
+## Run
+#CMD ["python", "main.py"]
+#
 
-COPY requirements.txt .
+FROM python:3.6.3
 
-RUN pip install -r /app/requirements.txt
-
-# Nodejs + NPM + PhantomJS
-RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
-RUN apt-get install -y nodejs
-RUN npm -g install -y phantomjs-prebuilt
-
-# App main src files
-COPY ./src/ .
-
-# Run
-CMD ["python", "main.py"]
-
-
-#RUN pip install virtualenv
-#COPY oldrequirements.txt /tmp/oldrequirements.txt
-#RUN virtualenv /tmp/tmpenv && /tmp/tmpenv/bin/pip install -r /tmp/oldrequirements.txt --src $HOME && rm -r /tmp/tmpenv

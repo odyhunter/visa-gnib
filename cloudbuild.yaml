@@ -1,0 +1,22 @@
+# https://cloud.google.com/container-builder/docs/api/reference/rest/v1/projects.builds
+
+steps:
+# build and push the backend app
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$PROJECT_ID/visa-gnib-app:$BRANCH_NAME-$REVISION_ID', 'app/']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/$PROJECT_ID/pp-exchange:$BRANCH_NAME-$REVISION_ID"]
+
+# build and push frontend
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ['build', '--tag=gcr.io/$PROJECT_ID/visa-gnib-web:$BRANCH_NAME-$REVISION_ID', 'web/']
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ["push", "gcr.io/$PROJECT_ID/visa-gnib-web:$BRANCH_NAME-$REVISION_ID"]
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=europe-west3-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=dev-visa-gnib'
+  - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'
+  # Kubectl set image deployment/{DEPLOY NAME} "{CONTAINER NAME}=gcr.io/$PROJECT/{APP NAME}"
+  args: ['set', 'image', 'deployment/app', 'app=gcr.io/$PROJECT_ID/visa-gnib-app:$BRANCH_NAME-$REVISION_ID']
