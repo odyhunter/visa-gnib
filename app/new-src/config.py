@@ -17,4 +17,3 @@ print('Configuration loaded ...')
 
 subscriber = pubsub_v1.SubscriberClient()
 publisher = pubsub_v1.PublisherClient()
-

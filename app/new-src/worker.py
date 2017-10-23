@@ -5,8 +5,8 @@ from config import (
     SUBSCRIPTION,
 )
 
-subscription = subscriber.subscribe(SUBSCRIPTION, callback.update_info)
-
+subscription = subscriber.subscribe(SUBSCRIPTION)
+subscription.open(callback.update_info)
 
 while True:
     time.sleep(60)
