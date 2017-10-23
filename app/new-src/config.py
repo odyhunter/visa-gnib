@@ -1,4 +1,4 @@
-from google.cloud import pubsub_v1
+from google.cloud import pubsub
 import os
 import configparser
 
@@ -15,5 +15,6 @@ SUBSCRIPTION = f'projects/{GCLOUD_PROJECT}/subscriptions/{SUBSCRIPTION_NAME}'
 print('Configuration loaded ...')
 
 
-subscriber = pubsub_v1.SubscriberClient()
-publisher = pubsub_v1.PublisherClient()
+subscriber = pubsub.Subscription("sub_name")
+
+
