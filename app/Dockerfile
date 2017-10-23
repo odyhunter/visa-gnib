@@ -2,7 +2,7 @@
 
 #WORKDIR /app
 #
-#COPY requirements.txt .
+#
 #
 #RUN pip install -r /app/requirements.txt
 #
@@ -19,5 +19,8 @@
 #
 
 FROM python:3.6.3
-
-CMD ["python"]
+WORKDIR /app/
+ADD requirements.txt .
+RUN pip install -r requirements.txt
+ADD new-src .
+CMD ["python", "worker.py"]
