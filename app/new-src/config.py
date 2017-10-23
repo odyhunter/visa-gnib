@@ -14,7 +14,8 @@ SUBSCRIPTION = f'projects/{GCLOUD_PROJECT}/subscriptions/{SUBSCRIPTION_NAME}'
 
 print('Configuration loaded ...')
 
+publisher = pubsub.PublisherClient()
+subscriber = pubsub.SubscriberClient()
 
-subscriber = pubsub.Subscription("sub_name")
 
 
