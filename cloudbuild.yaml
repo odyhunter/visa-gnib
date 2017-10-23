@@ -5,7 +5,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/visa-gnib-app:$BRANCH_NAME-$REVISION_ID', 'app/']
 - name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "gcr.io/$PROJECT_ID/pp-exchange:$BRANCH_NAME-$REVISION_ID"]
+  args: ["push", "gcr.io/$PROJECT_ID/visa-gnib-app:$BRANCH_NAME-$REVISION_ID"]
 
 # build and push frontend
 #- name: 'gcr.io/cloud-builders/docker'
