@@ -1,15 +1,13 @@
 import os
 import datetime
 from configparser import ConfigParser
-
 config = ConfigParser()
 config.read(os.environ['CONFIG_PATH'])
-
 GCLOUD_PROJECT = config['app']['GCLOUD_PROJECT']
 MAILJET_API_KEY = config['app']['MAILJET_API_KEY']
 MAILJET_API_SECRET = config['app']['MAILJET_API_SECRET']
 MAILJET_SENDER = config['app']['MAILJET_SENDER']
-VISA_TYPE = 'visa'
+
 VISA_UPDATE_URL = 'https://reentryvisa.inis.gov.ie/website/INISOA/IOA.nsf/(getApps4DT)?openagent&' \
                   'dt={}/{}/{}&type=I&num=1'
 GNIB_UPDATE_URL = 'https://burghquayregistrationoffice.inis.gov.ie/Website/AMSREG/AMSRegWeb.nsf/(getApps4DT)' \
@@ -17,14 +15,11 @@ GNIB_UPDATE_URL = 'https://burghquayregistrationoffice.inis.gov.ie/Website/AMSRE
 
 VISA_HOST = 'reentryvisa.inis.gov.ie'
 GNIB_HOST = 'burghquayregistrationoffice.inis.gov.ie'
-# Range of days to check
-VISA_DAYS_UPDATE_RANGE = 90
-GNIB_DAYS_UPDATE_RANGE = 90
-
-# Timeout of SECONDS between the requests
-FETCH_APPOINTMENTS_TIMEOUT = 60
 
 TODAY_plus_2 = datetime.datetime.today() + datetime.timedelta(days=2)
+DAYS_UPDATE_RANGE = 90
+FETCH_APPOINTMENTS_TIMEOUT = 60
+TYPE_VISA = 'visa'
 
 HEADERS = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) '

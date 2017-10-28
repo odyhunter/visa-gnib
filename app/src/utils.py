@@ -2,16 +2,14 @@ from __future__ import print_function
 
 import json
 import mailjet_rest
-import config
+import src.config
 
-from google.cloud import datastore
 from datetime import datetime, timedelta, time
 
 from requests import get
-from selenium_phantomjs import visa_auto_submission, gnib_auto_submission
+from src.selenium_phantomjs import visa_auto_submission, gnib_auto_submission
 
 
-datastore_api_client = datastore.Client(project=config.GCLOUD_PROJECT)
 
 
 def make_header(header, appointment_type):
@@ -65,11 +63,6 @@ def fetch_appointments(days, appointment_type):
     for counter in range(days):
         date_obj = datetime.combine(config.TODAY_plus_2 + timedelta(days=counter), time())
         print('Fetch appointments for {} {}'.format(appointment_type, str(date_obj)))
-        datastore_api_query = datastore_api_client.query(kind='AppointmentSlot')
-        datastore_api_query.add_filter('appointment_type', '=', appointment_type)
-        datastore_api_query.add_filter('date', '=', date_obj)
-        keys_to_delete = [entity.key for entity in datastore_api_query.fetch()]
-        datastore_api_client.delete_multi(keys_to_delete)
         # [Parameters for request]
         # make 1 liner
         day = str(date_obj)[8:10]
@@ -87,13 +80,14 @@ def fetch_appointments(days, appointment_type):
             slots_of_that_date = [(datetime.strptime(slot['time'], '%d/%m/%Y %I:%M %p'), slot['id'])
                                   for slot in response_json["slots"]]
             for appointment_slot, slot_id in slots_of_that_date:
-                appointment_slot_key = datastore_api_client.key('AppointmentSlot')
-                appointment_slot_entity = datastore.entity.Entity(appointment_slot_key)
-                appointment_slot_entity['date'] = date_obj
-                appointment_slot_entity['appointment_type'] = str(appointment_type)
-                appointment_slot_entity['slot'] = appointment_slot
-                appointment_slot_entity['slot_id'] = slot_id
-                datastore_api_client.put(appointment_slot_entity)
+                print(appointment_slot)
+                # appointment_slot_key = datastore_api_client.key('AppointmentSlot')
+                # appointment_slot_entity = datastore.entity.Entity(appointment_slot_key)
+                # appointment_slot_entity['date'] = date_obj
+                # appointment_slot_entity['appointment_type'] = str(appointment_type)
+                # appointment_slot_entity['slot'] = appointment_slot
+                # appointment_slot_entity['slot_id'] = slot_id
+                # datastore_api_client.put(appointment_slot_entity)
 
 
 # check if there are appointments that fulfil the notification requests
