@@ -14,7 +14,7 @@ grpcio==1.10.1
 idna==2.6
 multidict==4.1.0
 ply==3.11
-protobuf==3.4.0
+protobuf==3.5.2.post1
 psutil==5.4.0
 py==1.4.34
 pyasn1==0.3.7
