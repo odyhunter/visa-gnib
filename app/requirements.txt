@@ -6,7 +6,7 @@ chardet==3.0.4
 dill==0.2.7.1
 future==0.16.0
 google-auth==1.4.1
-google-cloud-core==0.27.1
+google-cloud-core==0.28.1
 google-gax==0.15.15
 googleapis-common-protos==1.5.3
 grpc-google-iam-v1==0.11.4
