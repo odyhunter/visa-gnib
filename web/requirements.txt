@@ -31,7 +31,7 @@ google-cloud-language==1.0.1
 google-cloud-logging==1.6.0
 google-cloud-monitoring==0.28.1
 google-cloud-pubsub==0.33.1
-google-cloud-resource-manager==0.26.0
+google-cloud-resource-manager==0.28.1
 google-cloud-runtimeconfig==0.26.0
 google-cloud-spanner==0.26.0
 google-cloud-speech==0.28.0
