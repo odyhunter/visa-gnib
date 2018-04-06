@@ -20,7 +20,7 @@ gapic-google-cloud-spanner-admin-instance-v1==0.15.3
 gapic-google-cloud-spanner-v1==0.15.3
 google-auth==1.4.1
 google-auth-httplib2==0.0.3
-google-cloud==0.27.0
+google-cloud==0.32.0
 google-cloud-bigquery==0.26.0
 google-cloud-bigtable==0.26.0
 google-cloud-core==0.28.1
