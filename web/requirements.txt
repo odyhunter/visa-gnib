@@ -24,7 +24,7 @@ google-cloud==0.32.0
 google-cloud-bigquery==0.32.0
 google-cloud-bigtable==0.29.0
 google-cloud-core==0.28.1
-google-cloud-datastore==1.2.0
+google-cloud-datastore==1.6.0
 google-cloud-dns==0.26.0
 google-cloud-error-reporting==0.26.0
 google-cloud-language==0.27.0
