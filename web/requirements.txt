@@ -68,7 +68,7 @@ proto-google-cloud-spanner-v1==0.15.3
 protobuf==3.5.2.post1
 ptpython==0.41
 pyasn1==0.4.2
-pyasn1-modules==0.1.4
+pyasn1-modules==0.2.1
 Pygments==2.2.0
 pyparsing==2.1.10
 requests==2.18.4
