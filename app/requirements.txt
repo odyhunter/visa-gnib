@@ -27,4 +27,4 @@ urllib3==1.22
 yarl==1.1.1
 sqlalchemy==1.2.6
 psycopg2==2.7.4
-mailjet_rest
+mailjet_rest==v1.3.0
