@@ -10,7 +10,7 @@ google-cloud-core==0.28.1
 google-gax==0.16.0
 googleapis-common-protos==1.5.3
 grpc-google-iam-v1==0.11.4
-grpcio==1.4.0
+grpcio==1.10.1
 idna==2.6
 multidict==3.3.0
 ply==3.8
