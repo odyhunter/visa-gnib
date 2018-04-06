@@ -5,7 +5,7 @@ certifi==2018.1.18
 chardet==3.0.4
 dill==0.2.7.1
 future==0.16.0
-google-auth==1.1.1
+google-auth==1.4.1
 google-cloud-core==0.27.1
 google-gax==0.15.15
 googleapis-common-protos==1.5.3
