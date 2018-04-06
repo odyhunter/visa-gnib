@@ -8,7 +8,7 @@ click==6.7
 dill==0.2.7.1
 docopt==0.6.2
 enum34==1.1.6
-Flask==0.12
+Flask==0.12.2
 future==0.16.0
 futures==3.0.5
 gapic-google-cloud-datastore-v1==0.15.3
